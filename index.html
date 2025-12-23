@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بطاقة الهوية التاريخية | اكتشف ماضيك</title>
+    <title>بطاقة الهوية التاريخية | الإصدار الماسي</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- خط 'Cairo' لعرض عربي احترافي -->
+    <!-- خط 'Cairo' -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
     
     <style>
@@ -25,17 +25,12 @@
             background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 100%);
         }
 
-        /* تأثيرات ذهبية */
+        /* نصوص ذهبية */
         .gold-text {
             background: linear-gradient(to bottom, #FFD700, #D4AF37, #B8860B);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             text-shadow: 0px 2px 4px rgba(0,0,0,0.5);
-        }
-
-        .gold-border {
-            border: 2px solid var(--royal-gold);
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
 
         .gold-btn {
@@ -48,83 +43,56 @@
             box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
         }
 
-        /* الخرطوشة الفرعونية */
+        /* الخرطوشة */
         .cartouche-container {
-            border: 4px solid var(--royal-gold);
-            border-radius: 50px;
-            padding: 10px 20px;
-            background: #F5E6CA; /* لون البردي */
+            border: 3px solid var(--royal-gold);
+            border-radius: 40px;
+            padding: 5px 15px;
+            background: #F5E6CA;
             color: #000;
             display: inline-flex;
-            flex-direction: column; 
             align-items: center;
             justify-content: center;
-            min-width: 200px;
+            min-width: 180px;
             position: relative;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
         }
-        
         .cartouche-container::after {
             content: '';
             position: absolute;
-            right: -15px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 10px;
-            height: 80%;
-            background: var(--royal-gold);
-            border-radius: 5px;
+            right: -12px; top: 50%; transform: translateY(-50%);
+            width: 8px; height: 70%; background: var(--royal-gold); border-radius: 4px;
         }
 
-        .hiero-symbol {
-            width: 35px;
-            height: 35px;
-            margin: 0 2px;
-            fill: #000;
-        }
+        .hiero-symbol { width: 30px; height: 30px; margin: 0 1px; fill: #000; }
 
-        /* البطاقة النهائية */
+        /* تصميم البطاقة */
         .id-card {
-            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZjVlNmNhIi8+CjxwYXRoIGQ9Ik0wIDBMNCA0Wk00IDBMMCA0WiIgc3Ryb2tlPSIjZTZkN2IyIiBzdHJva2Utd2lkdGg9IjAuNSIvPgo8L3N2Zz4='); /* نقش بسيط */
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZjVlNmNhIi8+CjxwYXRoIGQ9Ik0wIDBMNCA0Wk00IDBMMCA0WiIgc3Ryb2tlPSIjZTZkN2IyIiBzdHJva2Utd2lkdGg9IjAuNSIvPgo8L3N2Zz4=');
             background-color: var(--papyrus-light);
             color: #1a1a1a;
             position: relative;
             overflow: hidden;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
+            border: 1px solid #ccc;
         }
-
         .id-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            border: 8px double var(--royal-gold);
-            pointer-events: none;
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border: 6px double var(--royal-gold); pointer-events: none;
         }
 
-        /* زخارف الزوايا */
-        .corner-deco {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--deep-red);
-            z-index: 10;
-        }
-        .top-right { top: 10px; right: 10px; border-bottom: none; border-left: none; }
-        .top-left { top: 10px; left: 10px; border-bottom: none; border-right: none; }
-        .bottom-right { bottom: 10px; right: 10px; border-top: none; border-left: none; }
-        .bottom-left { bottom: 10px; left: 10px; border-top: none; border-right: none; }
-
-        /* حركات */
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .reveal {
-            animation: fadeIn 0.8s ease-out forwards;
+        /* شارات المعلومات */
+        .info-badge {
+            background: rgba(139, 0, 0, 0.08);
+            border: 1px solid var(--deep-red);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            color: var(--deep-red);
+            font-weight: bold;
+            display: inline-block;
         }
 
-        /* تحسينات الحقول */
+        /* حقول الإدخال */
         .input-field {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid #333;
@@ -133,172 +101,139 @@
         }
         .input-field:focus {
             border-color: var(--royal-gold);
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
             outline: none;
         }
-        
-        /* شريط المعلومات الجديد */
-        .info-badge {
-            background: rgba(139, 0, 0, 0.1);
-            border: 1px solid var(--deep-red);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            color: var(--deep-red);
-            font-weight: bold;
-        }
+
+        /* حركة الظهور */
+        .reveal { animation: fadeIn 0.8s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between">
 
     <!-- Header -->
-    <header class="p-6 text-center border-b border-gray-800 bg-black/50 backdrop-blur-sm sticky top-0 z-50">
-        <h1 class="text-4xl font-black gold-text mb-2">بوابة الزمن</h1>
-        <p class="text-gray-400 text-sm tracking-wide">مشروع بطاقة الهوية التاريخية</p>
+    <header class="p-4 text-center border-b border-gray-800 bg-black/50 backdrop-blur-sm sticky top-0 z-50">
+        <h1 class="text-3xl font-black gold-text">الهوية التاريخية</h1>
     </header>
 
-    <!-- Main Content -->
+    <!-- Main -->
     <main class="flex-grow flex items-center justify-center p-4">
-        
         <div class="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
             
-            <!-- Form Section -->
-            <section id="inputSection" class="bg-gray-900/80 p-8 rounded-2xl border border-gray-800 shadow-2xl backdrop-blur-md">
-                <div class="mb-6 text-center">
-                    <h2 class="text-2xl font-bold text-white mb-2">سجل بياناتك</h2>
-                    <p class="text-gray-400 text-xs">ادخل تاريخ ميلادك كاملاً لنكشف لك أسرار الماضي.</p>
+            <!-- Input Form -->
+            <section id="inputSection" class="bg-gray-900/80 p-6 rounded-2xl border border-gray-800 shadow-2xl backdrop-blur-md">
+                <div class="mb-4 text-center">
+                    <h2 class="text-xl font-bold text-white">بياناتك الشخصية</h2>
+                    <p class="text-gray-400 text-xs">اكتب تاريخ ميلادك بدقة لنحلل صفاتك عبر الزمن.</p>
                 </div>
 
-                <form id="historyForm" class="space-y-5" onsubmit="generateCard(event)">
+                <form id="historyForm" class="space-y-4" onsubmit="generateCard(event)">
                     <div>
-                        <label class="block text-gray-400 text-sm mb-1">الاسم (بالعربية أو الإنجليزية)</label>
-                        <input type="text" id="nameInput" required maxlength="15" placeholder="مثال: محمود" 
+                        <label class="block text-gray-400 text-xs mb-1">الاسم</label>
+                        <input type="text" id="nameInput" required maxlength="15" placeholder="الاسم الأول" 
                                class="input-field w-full p-3 rounded-lg text-center font-bold text-lg">
                     </div>
 
                     <div class="grid grid-cols-3 gap-2">
                         <div>
-                            <label class="block text-gray-400 text-sm mb-1">يوم</label>
-                            <select id="dayInput" class="input-field w-full p-3 rounded-lg text-center cursor-pointer">
-                                <!-- JS fills this -->
-                            </select>
+                            <label class="block text-gray-400 text-xs mb-1">يوم</label>
+                            <select id="dayInput" class="input-field w-full p-3 rounded-lg text-center cursor-pointer"></select>
                         </div>
                         <div>
-                            <label class="block text-gray-400 text-sm mb-1">شهر</label>
+                            <label class="block text-gray-400 text-xs mb-1">شهر</label>
                             <select id="monthInput" class="input-field w-full p-3 rounded-lg text-center cursor-pointer">
-                                <option value="1">يناير</option>
-                                <option value="2">فبراير</option>
-                                <option value="3">مارس</option>
-                                <option value="4">أبريل</option>
-                                <option value="5">مايو</option>
-                                <option value="6">يونيو</option>
-                                <option value="7">يوليو</option>
-                                <option value="8">أغسطس</option>
-                                <option value="9">سبتمبر</option>
-                                <option value="10">أكتوبر</option>
-                                <option value="11">نوفمبر</option>
-                                <option value="12">ديسمبر</option>
+                                <option value="1">يناير</option><option value="2">فبراير</option><option value="3">مارس</option>
+                                <option value="4">أبريل</option><option value="5">مايو</option><option value="6">يونيو</option>
+                                <option value="7">يوليو</option><option value="8">أغسطس</option><option value="9">سبتمبر</option>
+                                <option value="10">أكتوبر</option><option value="11">نوفمبر</option><option value="12">ديسمبر</option>
                             </select>
                         </div>
                         <div>
-                             <label class="block text-gray-400 text-sm mb-1">سنة</label>
-                             <input type="number" id="yearInput" required min="1900" max="2025" placeholder="2000" 
+                             <label class="block text-gray-400 text-xs mb-1">سنة</label>
+                             <input type="number" id="yearInput" required min="1920" max="2025" placeholder="2000" 
                                     class="input-field w-full p-3 rounded-lg text-center">
                         </div>
                     </div>
 
                     <div>
-                        <label class="block text-gray-400 text-sm mb-1">الجنس</label>
+                        <label class="block text-gray-400 text-xs mb-1">الجنس</label>
                         <div class="flex gap-4">
                             <label class="flex-1 cursor-pointer">
                                 <input type="radio" name="gender" value="male" checked class="hidden peer">
-                                <div class="p-3 rounded-lg border border-gray-700 text-center peer-checked:border-[#D4AF37] peer-checked:bg-[#D4AF37]/10 peer-checked:text-[#D4AF37] transition-all">
-                                    ذكر
-                                </div>
+                                <div class="p-2 rounded-lg border border-gray-700 text-center peer-checked:border-[#D4AF37] peer-checked:bg-[#D4AF37]/10 peer-checked:text-[#D4AF37]">ذكر</div>
                             </label>
                             <label class="flex-1 cursor-pointer">
                                 <input type="radio" name="gender" value="female" class="hidden peer">
-                                <div class="p-3 rounded-lg border border-gray-700 text-center peer-checked:border-[#D4AF37] peer-checked:bg-[#D4AF37]/10 peer-checked:text-[#D4AF37] transition-all">
-                                    أنثى
-                                </div>
+                                <div class="p-2 rounded-lg border border-gray-700 text-center peer-checked:border-[#D4AF37] peer-checked:bg-[#D4AF37]/10 peer-checked:text-[#D4AF37]">أنثى</div>
                             </label>
                         </div>
                     </div>
 
-                    <button type="submit" class="gold-btn w-full py-4 rounded-xl font-black text-lg shadow-lg mt-4 flex items-center justify-center gap-2">
-                        <span>إصدار الوثيقة الملكية</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
+                    <button type="submit" class="gold-btn w-full py-3 rounded-xl font-bold text-lg shadow-lg mt-2">
+                        تحليل الهوية
                     </button>
                 </form>
             </section>
 
-            <!-- Result Section -->
+            <!-- Result Card -->
             <section id="resultSection" class="hidden relative perspective-1000">
-                <div class="id-card w-full max-w-sm mx-auto rounded-xl shadow-2xl p-6 text-center transform transition-transform hover:scale-105">
-                    <!-- Deco -->
-                    <div class="corner-deco top-right"></div>
-                    <div class="corner-deco top-left"></div>
-                    <div class="corner-deco bottom-right"></div>
-                    <div class="corner-deco bottom-left"></div>
-
-                    <!-- Content -->
+                <div class="id-card w-full max-w-sm mx-auto rounded-xl shadow-2xl p-5 text-center transform transition-transform hover:scale-105">
+                    
+                    <!-- Top Deco -->
                     <div class="py-2">
-                        <h3 class="text-[#8B0000] font-bold text-lg tracking-widest uppercase mb-1">سجل الخلود</h3>
+                        <h3 class="text-[#8B0000] font-bold text-base tracking-widest uppercase mb-2">المملكة المصرية</h3>
                         
-                        <!-- New Info Strip -->
-                        <div class="flex justify-center gap-2 mb-3 mt-2">
-                            <span class="info-badge" id="ageDisplay"></span>
-                            <span class="info-badge" id="zodiacDisplay"></span>
-                        </div>
-
                         <!-- Symbol -->
                         <div class="w-20 h-20 mx-auto bg-gray-200 rounded-full border-4 border-[#D4AF37] mb-2 overflow-hidden flex items-center justify-center shadow-md">
-                             <div id="godSymbol" class="text-4xl">🦅</div>
+                             <div id="godSymbol" class="text-4xl"></div>
                         </div>
 
                         <!-- Name & Cartouche -->
                         <h2 id="cardName" class="text-xl font-black text-black mb-1"></h2>
-                        <div class="cartouche-container mb-3 shadow-inner transform scale-90" id="hieroglyphName"></div>
+                        <div class="cartouche-container mb-3 scale-90" id="hieroglyphName"></div>
+
+                        <!-- Info Strip (Age & Zodiac) -->
+                        <div class="flex justify-center gap-2 mb-3">
+                            <span class="info-badge" id="ageDisplay"></span>
+                            <span class="info-badge" id="zodiacNameDisplay"></span>
+                        </div>
 
                         <!-- Details Box -->
-                        <div class="bg-[#e8dcc0] p-3 rounded-lg border border-[#D4AF37]/50">
-                            <div class="grid grid-cols-2 gap-2 text-right border-b border-[#D4AF37]/30 pb-2 mb-2">
-                                <div>
-                                    <span class="block text-[9px] text-[#8B0000] font-bold">اللقب الملكي</span>
-                                    <span id="royalTitle" class="text-xs font-bold text-black"></span>
-                                </div>
-                                <div>
-                                    <span class="block text-[9px] text-[#8B0000] font-bold">الحامي</span>
-                                    <span id="godName" class="text-xs font-bold text-black"></span>
-                                </div>
-                            </div>
+                        <div class="bg-[#e8dcc0] p-3 rounded-lg border border-[#D4AF37]/50 text-right">
                             
-                            <!-- Historical Event Section -->
-                            <div class="text-right">
-                                <span class="block text-[9px] text-[#8B0000] font-bold flex items-center gap-1">
-                                    <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" /></svg>
-                                    حدث في تاريخك
-                                </span>
-                                <p id="historyEvent" class="text-[10px] text-gray-800 leading-snug font-semibold mt-1"></p>
+                            <!-- Pharaonic Profile -->
+                            <div class="mb-3 border-b border-[#D4AF37]/30 pb-2">
+                                <div class="flex justify-between items-end mb-1">
+                                    <span class="text-[10px] text-[#8B0000] font-bold">القرين التاريخي</span>
+                                    <span id="godName" class="text-xs font-bold text-black bg-[#D4AF37]/20 px-2 rounded"></span>
+                                </div>
+                                <p id="prophecy" class="text-[10px] text-gray-800 leading-snug font-semibold"></p>
+                            </div>
+
+                            <!-- Zodiac Traits -->
+                            <div>
+                                <div class="flex justify-between items-end mb-1">
+                                    <span class="text-[10px] text-[#8B0000] font-bold">صفاتك الفلكية</span>
+                                    <span class="text-[10px] text-black">🔭</span>
+                                </div>
+                                <p id="zodiacTraitsDisplay" class="text-[10px] text-gray-700 leading-snug"></p>
                             </div>
                         </div>
                         
                         <!-- Footer -->
                         <div class="mt-2 flex justify-between items-center px-2 text-gray-500">
-                            <div class="text-[9px] font-mono" id="birthDateDisplay"></div>
+                            <div class="text-[9px] font-mono" id="fullDateDisplay"></div>
                             <div class="text-lg">𓋹 𓏏 𓆣</div>
                         </div>
                     </div>
                 </div>
 
-                <!-- Buttons -->
+                <!-- Actions -->
                 <div class="mt-6 flex justify-center gap-4">
-                    <button onclick="resetApp()" class="px-4 py-2 bg-gray-800 rounded-lg text-sm hover:bg-gray-700 transition">تجربة أخرى</button>
-                    <button onclick="shareCard()" class="px-4 py-2 bg-[#25D366] text-white rounded-lg text-sm hover:bg-[#1ebc57] transition flex items-center gap-2 font-bold shadow-lg shadow-green-900/20">
-                         مشاركة
-                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    <button onclick="resetApp()" class="px-4 py-2 bg-gray-800 rounded-lg text-sm text-white">عودة</button>
+                    <button onclick="shareCard()" class="px-4 py-2 bg-[#25D366] text-white rounded-lg text-sm font-bold shadow-lg flex items-center gap-2">
+                        مشاركة النتيجة 
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
                     </button>
                 </div>
             </section>
@@ -306,20 +241,17 @@
     </main>
 
     <footer class="text-center p-4 text-gray-600 text-xs">
-        <p>تم تطوير هذا النظام بواسطة محمود أبو الفضل © 2025</p>
+        <p>تم التطوير بواسطة: محمود أبو الفضل © 2025</p>
     </footer>
 
     <script>
-        // --- Setup ---
+        // --- 1. إعداد القوائم ---
         const daySelect = document.getElementById('dayInput');
         for (let i = 1; i <= 31; i++) {
-            const opt = document.createElement('option');
-            opt.value = i;
-            opt.innerText = i;
-            daySelect.appendChild(opt);
+            const opt = document.createElement('option'); opt.value = i; opt.innerText = i; daySelect.appendChild(opt);
         }
 
-        // --- Data: Hieroglyphs ---
+        // --- 2. بيانات الهيروغليفية ---
         const hieroPaths = {
             'a': 'M10,25 Q15,5 20,25 M5,15 L25,15', 'b': 'M5,20 L10,10 L25,10 L25,25 L5,25',
             'c': 'M5,15 Q15,5 25,15', 'd': 'M5,10 L25,10 L25,20 Q15,25 5,20 Z',
@@ -345,63 +277,54 @@
             'ه': 'h', 'و': 'w', 'ي': 'y', 'ى': 'a', 'ة': 'h'
         };
 
-        // --- Data: Pharaonic Profiles ---
-        const historyData = [
-            { god: "رع", title: "ابن الشمس", symbol: "☀️" }, // 1
-            { god: "تحوت", title: "حارس الحكمة", symbol: "📜" }, // 2
-            { god: "إيزيس", title: "مانح الحياة", symbol: "🪽" }, // 3
-            { god: "أوزوريس", title: "سيد الأبدية", symbol: "👑" }, // 4
-            { god: "حورس", title: "عين الصقر", symbol: "🦅" }, // 5
-            { god: "أنوبيس", title: "حارس الأسرار", symbol: "🐕" }, // 6
-            { god: "باستيت", title: "روح القوة", symbol: "🐱" }, // 7
-            { god: "سخمت", title: "قوة الحرب", symbol: "🦁" }, // 8
-            { god: "موت", title: "الأم العظمى", symbol: "🏺" }, // 9
-            { god: "بتاح", title: "الصانع الأعظم", symbol: "🔨" }, // 10
-            { god: "سوبيك", title: "سيد النيل", symbol: "🐊" }, // 11
-            { god: "آمون", title: "الخفي", symbol: "🌬️" } // 12
+        // --- 3. بيانات الشخصيات الفرعونية (النسخة الأولى) ---
+        const godProfiles = [
+            { god: "رع (Ra)", title: "ابن الشمس", symbol: "☀️", desc: "قيادي، مشع، وصاحب قرارات حاسمة كشروق الشمس." },
+            { god: "تحوت (Thoth)", title: "حارس الحكمة", symbol: "📜", desc: "مفكر، تحليلي، ودقيق الملاحظة. يعشق العلم." },
+            { god: "إيزيس (Isis)", title: "مانح الحياة", symbol: "🪽", desc: "لديك سحر خاص وقدرة على احتواء الجميع." },
+            { god: "أوزوريس (Osiris)", title: "سيد الأبدية", symbol: "👑", desc: "متزن وعادل، وتملك قدرة عجيبة على التجدد." },
+            { god: "حورس (Horus)", title: "عين الصقر", symbol: "🦅", desc: "شجاع ومقدام، قائد بالفطرة يحمي من يحب." },
+            { god: "أنوبيس (Anubis)", title: "حارس الأسرار", symbol: "🐕", desc: "غامض، كاتم للأسرار، وعميق التفكير." },
+            { god: "باستيت (Bastet)", title: "روح القوة", symbol: "🐱", desc: "تمزج بين اللطف والشراسة عند اللزوم." },
+            { god: "سخمت (Sekhmet)", title: "قوة الحرب", symbol: "🦁", desc: "شخصية نارية، إرادة حديدية لا تعرف الاستسلام." },
+            { god: "موت (Mut)", title: "الأم العظمى", symbol: "🏺", desc: "منظم جداً وتصلح لإدارة المجموعات الكبيرة." },
+            { god: "بتاح (Ptah)", title: "الصانع", symbol: "🔨", desc: "مبدع، تفكيرك عملي، تحب بناء الأشياء من الصفر." },
+            { god: "سوبيك (Sobek)", title: "سيد النيل", symbol: "🐊", desc: "قوي وغريزي، تفرض احترامك وسريع البديهة." },
+            { god: "آمون (Amun)", title: "الخفي", symbol: "🌬️", desc: "غامض، استراتيجي، وتخطط لخطواتك بعناية." }
         ];
 
-        // --- Data: Historical Events (Simple DB) ---
-        const eventsDB = {
-            1: "في هذا الشهر، يحتفل المصريون القدماء بأعياد الإنبات والزراعة.",
-            2: "تذكر البرديات أن معبد أبي سمبل يشهد تعامد الشمس في هذا التوقيت.",
-            3: "شهر مرتبط بالفيضان الصغير والاستعداد للحصاد في مصر القديمة.",
-            4: "ذكرى تأسيس العديد من المعابد الكبرى في طيبة.",
-            5: "شهر الانتصارات العسكرية للملوك المحاربين مثل تحتمس الثالث.",
-            6: "بداية موسم الصيف المصري القديم (شمو) والاستعداد لارتفاع النيل.",
-            7: "احتفالات رأس السنة المصرية القديمة وبداية الفيضان المبارك.",
-            8: "شهر وفاء النيل، حيث يبلغ النهر ذروته ويحيي الأرض.",
-            9: "موسم جني العنب وصناعة النبيذ في الدلتا القديمة.",
-            10: "احتفالات النصر وتتويج الملوك في منف.",
-            11: "موسم الحرث والبذر بعد انحسار مياه الفيضان.",
-            12: "أعياد أوزوريس والبعث في أبيدوس."
+        // --- 4. بيانات الأبراج وصفاتها (النسخة الثانية) ---
+        const zodiacTraits = {
+            "Aries": { name: "الحمل ♈", traits: "جريء، مبادر، وقائد بالفطرة. لا يخشى التحديات." },
+            "Taurus": { name: "الثور ♉", traits: "صبور، عملي، ومحب للاستقرار والجمال." },
+            "Gemini": { name: "الجوزاء ♊", traits: "ذكي، اجتماعي، ومتعدد المواهب وسريع التكيف." },
+            "Cancer": { name: "السرطان ♋", traits: "عاطفي، حدسي، ومخلص جداً لمن يحب." },
+            "Leo": { name: "الأسد ♌", traits: "كاريزما عالية، كريم، ويحب أن يكون محور الاهتمام." },
+            "Virgo": { name: "العذراء ♍", traits: "دقيق، تحليلي، ويسعى دائماً للكمال." },
+            "Libra": { name: "الميزان ♎", traits: "دبلوماسي، عادل، ويسعى للتوازن في كل شيء." },
+            "Scorpio": { name: "العقرب ♏", traits: "شغوف، قوي الإرادة، وغامض وجذاب." },
+            "Sagittarius": { name: "القوس ♐", traits: "متفائل، محب للمغامرة، وصادق جداً." },
+            "Capricorn": { name: "الجدي ♑", traits: "طموح، منضبط، ويخطط للمستقبل بجدية." },
+            "Aquarius": { name: "الدلو ♒", traits: "مبتكر، مستقل، ويفكر خارج الصندوق." },
+            "Pisces": { name: "الحوت ♓", traits: "حالم، متعاطف، ولديه خيال فني واسع." }
         };
 
-        // Specific Days (Easter Eggs)
-        const specificEvents = {
-            "6-10": "ذكرى نصر أكتوبر المجيد (بالتقويم الحديث).",
-            "23-7": "ذكرى الثورة وبداية عهد جديد لمصر.",
-            "4-11": "يوم اكتشاف مقبرة توت عنخ آمون (1922).",
-            "15-7": "تاريخ اكتشاف حجر رشيد (1799)."
-        };
-
-        // --- Helpers ---
-        function getZodiac(day, month) {
-            if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) return "الدلو ♒";
-            if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) return "الحوت ♓";
-            if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) return "الحمل ♈";
-            if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) return "الثور ♉";
-            if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) return "الجوزاء ♊";
-            if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) return "السرطان ♋";
-            if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) return "الأسد ♌";
-            if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) return "العذراء ♍";
-            if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) return "الميزان ♎";
-            if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) return "العقرب ♏";
-            if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) return "القوس ♐";
-            return "الجدي ♑";
+        function getZodiacData(day, month) {
+            if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) return zodiacTraits["Aquarius"];
+            if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) return zodiacTraits["Pisces"];
+            if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) return zodiacTraits["Aries"];
+            if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) return zodiacTraits["Taurus"];
+            if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) return zodiacTraits["Gemini"];
+            if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) return zodiacTraits["Cancer"];
+            if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) return zodiacTraits["Leo"];
+            if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) return zodiacTraits["Virgo"];
+            if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) return zodiacTraits["Libra"];
+            if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) return zodiacTraits["Scorpio"];
+            if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) return zodiacTraits["Sagittarius"];
+            return zodiacTraits["Capricorn"];
         }
 
-        // --- Main Logic ---
+        // --- 5. المنطق الرئيسي ---
         function generateCard(e) {
             e.preventDefault();
             
@@ -413,12 +336,11 @@
             
             if(!name || !year) return;
 
-            // 1. Process Name (Hieroglyphs)
+            // أ. معالجة الاسم (هيروغليفي)
             const hieroContainer = document.getElementById('hieroglyphName');
             hieroContainer.innerHTML = '';
-            let processedName = name.toLowerCase();
             let englishChars = [];
-            for (let char of processedName) {
+            for (let char of name.toLowerCase()) {
                 if (arToEn[char]) englishChars.push(arToEn[char]);
                 else if (/[a-z]/.test(char)) englishChars.push(char);
             }
@@ -438,33 +360,34 @@
                 hieroContainer.appendChild(svg);
             });
 
-            // 2. Calculate Stats
-            const currentYear = new Date().getFullYear();
-            const age = currentYear - year;
-            const zodiac = getZodiac(day, month);
-            
-            // 3. Get Event
-            const dateKey = `${day}-${month}`;
-            const eventText = specificEvents[dateKey] || eventsDB[month];
+            // ب. الحسابات
+            const age = new Date().getFullYear() - year;
+            const zodiacInfo = getZodiacData(day, month);
+            const godProfile = godProfiles[month - 1]; // استخدام الشهر لتحديد الشخصية الفرعونية
 
-            // 4. Update UI
-            const profile = historyData[month - 1];
-            let finalTitle = profile.title;
+            // ج. تعديل الألقاب حسب الجنس
+            let finalTitle = godProfile.title;
             if (gender === 'female') {
                 finalTitle = finalTitle.replace("ابن", "ابنة").replace("سيد", "سيدة").replace("حارس", "حارسة").replace("صانع", "صانعة");
             }
 
+            // د. تعبئة البطاقة
             document.getElementById('cardName').innerText = name;
-            document.getElementById('ageDisplay').innerText = `العمر: ${age} سنة`;
-            document.getElementById('zodiacDisplay').innerText = `البرج: ${zodiac}`;
-            document.getElementById('birthDateDisplay').innerText = `${year}/${month}/${day}`;
-            document.getElementById('historyEvent').innerText = eventText;
+            document.getElementById('fullDateDisplay').innerText = `${year} / ${month} / ${day}`;
             
-            document.getElementById('royalTitle').innerText = finalTitle;
-            document.getElementById('godName').innerText = profile.god;
-            document.getElementById('godSymbol').innerText = profile.symbol;
+            // الشريط المعلوماتي الجديد
+            document.getElementById('ageDisplay').innerText = `العمر: ${age}`;
+            document.getElementById('zodiacNameDisplay').innerText = zodiacInfo.name;
 
-            // Show
+            // القسم الفرعوني
+            document.getElementById('godName').innerText = `${godProfile.god} - ${finalTitle}`;
+            document.getElementById('godSymbol').innerText = godProfile.symbol;
+            document.getElementById('prophecy').innerText = godProfile.desc;
+
+            // القسم الفلكي
+            document.getElementById('zodiacTraitsDisplay').innerText = zodiacInfo.traits;
+
+            // هـ. العرض
             document.getElementById('inputSection').classList.add('hidden');
             const resSection = document.getElementById('resultSection');
             resSection.classList.remove('hidden');
@@ -479,9 +402,12 @@
         }
 
         function shareCard() {
-            const text = `لقد اكتشفت هويتي التاريخية! عمري ${document.getElementById('ageDisplay').innerText.replace('العمر: ','')} وبرجي ${document.getElementById('zodiacDisplay').innerText.replace('البرج: ','')}!`;
+            const age = document.getElementById('ageDisplay').innerText;
+            const god = document.getElementById('godName').innerText;
+            const text = `اكتشفت هويتي التاريخية! ${age}، وحارسي هو ${god}. جرب بنفسك!`;
+            
             if (navigator.share) {
-                navigator.share({ title: 'بطاقة الهوية التاريخية', text: text, url: window.location.href });
+                navigator.share({ title: 'هويتي التاريخية', text: text, url: window.location.href });
             } else {
                 navigator.clipboard.writeText(text + " " + window.location.href).then(() => alert('تم نسخ الرابط!'));
             }
@@ -489,6 +415,4 @@
     </script>
 </body>
 </html>
-
-
 
