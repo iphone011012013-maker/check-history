@@ -3,12 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بطاقة الهوية التاريخية | اكتشف ماضيك</title>
-    <!-- Tailwind CSS -->
+    <title>بوابة الهوية | محمود أبو الفضل</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- مكتبة تحويل HTML إلى صورة -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <!-- خط 'Cairo' -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
     
     <style>
@@ -17,17 +14,17 @@
             --deep-red: #8B0000;
             --midnight-black: #0F0F0F;
             --papyrus-light: #F5E6CA;
+            --tech-cyan: #00f3ff;
         }
 
         body {
             font-family: 'Cairo', sans-serif;
             background-color: var(--midnight-black);
             color: white;
-            overflow-x: hidden;
             background-image: radial-gradient(circle at 50% 50%, #1a1a1a 0%, #000000 100%);
         }
 
-        /* نصوص ذهبية */
+        /* Gold Text */
         .gold-text {
             background: linear-gradient(to bottom, #FFD700, #D4AF37, #B8860B);
             -webkit-background-clip: text;
@@ -35,40 +32,36 @@
             text-shadow: 0px 2px 4px rgba(0,0,0,0.5);
         }
 
+        /* Buttons */
         .gold-btn {
             background: linear-gradient(135deg, #B8860B 0%, #FFD700 50%, #B8860B 100%);
             color: #000;
             transition: all 0.3s ease;
         }
-        .gold-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
-        }
+        .gold-btn:hover { transform: translateY(-2px); box-shadow: 0 0 15px rgba(255, 215, 0, 0.4); }
 
-        /* الخرطوشة */
-        .cartouche-container {
-            border: 3px solid var(--royal-gold);
-            border-radius: 40px;
-            padding: 5px 15px;
-            background: #F5E6CA;
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #333;
+            color: #aaa;
+            transition: 0.3s;
+        }
+        .tab-btn.active {
+            background: var(--royal-gold);
             color: #000;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-width: 180px;
-            position: relative;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.2);
-        }
-        .cartouche-container::after {
-            content: '';
-            position: absolute;
-            right: -12px; top: 50%; transform: translateY(-50%);
-            width: 8px; height: 70%; background: var(--royal-gold); border-radius: 4px;
+            border-color: var(--royal-gold);
+            font-weight: bold;
         }
 
-        .hiero-symbol { width: 30px; height: 30px; margin: 0 1px; fill: #000; }
+        .input-field {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid #444;
+            color: #fff;
+            transition: 0.3s;
+        }
+        .input-field:focus { border-color: var(--royal-gold); outline: none; }
 
-        /* تصميم البطاقة */
+        /* Historical Card */
         .id-card {
             background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZjVlNmNhIi8+CjxwYXRoIGQ9Ik0wIDBMNCA0Wk00IDBMMCA0WiIgc3Ryb2tlPSIjZTZkN2IyIiBzdHJva2Utd2lkdGg9IjAuNSIvPgo8L3N2Zz4=');
             background-color: var(--papyrus-light);
@@ -81,175 +74,225 @@
             content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             border: 6px double var(--royal-gold); pointer-events: none;
         }
-
-        /* شارات المعلومات */
-        .info-badge {
-            background: rgba(139, 0, 0, 0.08);
-            border: 1px solid var(--deep-red);
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 0.8rem;
-            color: var(--deep-red);
-            font-weight: bold;
-            display: inline-block;
+        .cartouche-container {
+            border: 3px solid var(--royal-gold); border-radius: 40px; padding: 5px 15px;
+            background: #F5E6CA; display: inline-flex; min-width: 180px;
         }
+        .hiero-symbol { width: 30px; height: 30px; margin: 0 1px; fill: #000; }
 
-        /* حقول الإدخال */
-        .input-field {
-            background: rgba(255, 255, 255, 0.05);
+        /* Analysis Card (Technical) */
+        .analysis-card {
+            background: #111;
             border: 1px solid #333;
-            color: #fff;
-            transition: 0.3s;
+            border-radius: 10px;
+            overflow: hidden;
         }
-        .input-field:focus {
-            border-color: var(--royal-gold);
-            outline: none;
+        .analysis-item {
+            border-bottom: 1px solid #222;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
+        .analysis-item:last-child { border-bottom: none; }
+        .analysis-label { font-size: 0.8rem; color: #888; }
+        .analysis-value { font-size: 0.9rem; font-weight: bold; color: #fff; text-align: left; }
 
-        /* حركة الظهور */
-        .reveal { animation: fadeIn 0.8s ease-out forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .reveal { animation: fadeIn 0.5s ease-out forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
-<body class="min-h-screen flex flex-col justify-between">
+<body class="min-h-screen flex flex-col">
 
     <!-- Header -->
-    <header class="p-4 text-center border-b border-gray-800 bg-black/50 backdrop-blur-sm sticky top-0 z-50">
-        <h1 class="text-3xl font-black gold-text">الهوية التاريخية</h1>
+    <header class="p-4 text-center border-b border-gray-800 bg-black/80 backdrop-blur sticky top-0 z-50">
+        <h1 class="text-2xl font-black gold-text">بوابة الهوية الرقمية</h1>
+        <p class="text-[10px] text-gray-500 mt-1">مشروع الوعي الرقمي والتاريخي</p>
     </header>
 
-    <!-- Main -->
-    <main class="flex-grow flex items-center justify-center p-4">
-        <div class="max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-            
-            <!-- Input Form -->
-            <section id="inputSection" class="bg-gray-900/80 p-6 rounded-2xl border border-gray-800 shadow-2xl backdrop-blur-md">
+    <!-- Tabs -->
+    <div class="flex justify-center p-4 gap-2">
+        <button onclick="switchTab('history')" id="tab-history" class="tab-btn active px-6 py-2 rounded-full text-sm">الهوية التاريخية</button>
+        <button onclick="switchTab('check')" id="tab-check" class="tab-btn px-6 py-2 rounded-full text-sm">كشف الرقم القومي</button>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow flex items-start justify-center p-4">
+        
+        <!-- SECTION 1: Historical Identity (Fun) -->
+        <div id="history-section" class="w-full max-w-md">
+            <!-- Input -->
+            <div id="history-input" class="bg-gray-900/80 p-6 rounded-2xl border border-gray-800 shadow-xl">
                 <div class="mb-4 text-center">
-                    <h2 class="text-xl font-bold text-white">بياناتك الشخصية</h2>
-                    <p class="text-gray-400 text-xs">اكتب تاريخ ميلادك بدقة لنحلل صفاتك عبر الزمن.</p>
+                    <h2 class="text-lg font-bold text-[#D4AF37]">الجانب الفرعوني والفلكي</h2>
+                    <p class="text-gray-500 text-xs">اكتشف قرينك التاريخي وصفات برجك.</p>
                 </div>
-
-                <form id="historyForm" class="space-y-4" onsubmit="generateCard(event)">
-                    <div>
-                        <label class="block text-gray-400 text-xs mb-1">الاسم</label>
-                        <input type="text" id="nameInput" required maxlength="15" placeholder="الاسم الأول" 
-                               class="input-field w-full p-3 rounded-lg text-center font-bold text-lg">
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-2">
-                        <div>
-                            <label class="block text-gray-400 text-xs mb-1">يوم</label>
-                            <select id="dayInput" class="input-field w-full p-3 rounded-lg text-center cursor-pointer"></select>
-                        </div>
-                        <div>
-                            <label class="block text-gray-400 text-xs mb-1">شهر</label>
-                            <select id="monthInput" class="input-field w-full p-3 rounded-lg text-center cursor-pointer">
-                                <option value="1">يناير</option><option value="2">فبراير</option><option value="3">مارس</option>
-                                <option value="4">أبريل</option><option value="5">مايو</option><option value="6">يونيو</option>
-                                <option value="7">يوليو</option><option value="8">أغسطس</option><option value="9">سبتمبر</option>
-                                <option value="10">أكتوبر</option><option value="11">نوفمبر</option><option value="12">ديسمبر</option>
-                            </select>
-                        </div>
-                        <div>
-                             <label class="block text-gray-400 text-xs mb-1">سنة</label>
-                             <input type="number" id="yearInput" required min="1920" max="2025" placeholder="2000" 
-                                    class="input-field w-full p-3 rounded-lg text-center">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-gray-400 text-xs mb-1">الجنس</label>
-                        <div class="flex gap-4">
-                            <label class="flex-1 cursor-pointer">
-                                <input type="radio" name="gender" value="male" checked class="hidden peer">
-                                <div class="p-2 rounded-lg border border-gray-700 text-center peer-checked:border-[#D4AF37] peer-checked:bg-[#D4AF37]/10 peer-checked:text-[#D4AF37]">ذكر</div>
-                            </label>
-                            <label class="flex-1 cursor-pointer">
-                                <input type="radio" name="gender" value="female" class="hidden peer">
-                                <div class="p-2 rounded-lg border border-gray-700 text-center peer-checked:border-[#D4AF37] peer-checked:bg-[#D4AF37]/10 peer-checked:text-[#D4AF37]">أنثى</div>
-                            </label>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="gold-btn w-full py-3 rounded-xl font-bold text-lg shadow-lg mt-2">
-                        تحليل الهوية
-                    </button>
-                </form>
-            </section>
-
-            <!-- Result Card -->
-            <section id="resultSection" class="hidden relative perspective-1000 flex flex-col items-center">
-                <!-- Card Element to Capture -->
-                <div id="captureTarget" class="id-card w-full max-w-sm mx-auto rounded-xl shadow-2xl p-5 text-center transform transition-transform">
+                <form onsubmit="generateHistoryCard(event)" class="space-y-4">
+                    <input type="text" id="histName" placeholder="الاسم الأول" class="input-field w-full p-3 rounded-lg text-center" required maxlength="15">
                     
-                    <!-- Top Deco -->
-                    <div class="py-2">
-                        <h3 class="text-[#8B0000] font-bold text-base tracking-widest uppercase mb-2">المملكة المصرية</h3>
-                        
-                        <!-- Symbol -->
-                        <div class="w-20 h-20 mx-auto bg-gray-200 rounded-full border-4 border-[#D4AF37] mb-2 overflow-hidden flex items-center justify-center shadow-md">
-                             <div id="godSymbol" class="text-4xl"></div>
-                        </div>
+                    <div class="grid grid-cols-3 gap-2">
+                         <select id="histDay" class="input-field w-full p-3 rounded-lg text-center cursor-pointer"></select>
+                         <select id="histMonth" class="input-field w-full p-3 rounded-lg text-center cursor-pointer">
+                            <option value="1">يناير</option><option value="2">فبراير</option><option value="3">مارس</option>
+                            <option value="4">أبريل</option><option value="5">مايو</option><option value="6">يونيو</option>
+                            <option value="7">يوليو</option><option value="8">أغسطس</option><option value="9">سبتمبر</option>
+                            <option value="10">أكتوبر</option><option value="11">نوفمبر</option><option value="12">ديسمبر</option>
+                        </select>
+                        <input type="number" id="histYear" placeholder="السنة" class="input-field w-full p-3 rounded-lg text-center" min="1950" max="2025" required>
+                    </div>
 
-                        <!-- Name & Cartouche -->
+                    <div class="flex gap-4">
+                         <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="histGender" value="male" checked class="hidden peer">
+                            <div class="p-2 rounded-lg border border-gray-700 text-center peer-checked:border-[#D4AF37] peer-checked:text-[#D4AF37]">ذكر</div>
+                        </label>
+                        <label class="flex-1 cursor-pointer">
+                            <input type="radio" name="histGender" value="female" class="hidden peer">
+                            <div class="p-2 rounded-lg border border-gray-700 text-center peer-checked:border-[#D4AF37] peer-checked:text-[#D4AF37]">أنثى</div>
+                        </label>
+                    </div>
+
+                    <button type="submit" class="gold-btn w-full py-3 rounded-xl font-bold mt-2">تحليل الهوية</button>
+                </form>
+            </div>
+
+            <!-- Result (Hidden) -->
+            <div id="history-result" class="hidden mt-4 relative">
+                <div id="captureHistory" class="id-card w-full rounded-xl shadow-2xl p-5 text-center">
+                    <div class="py-2">
+                        <h3 class="text-[#8B0000] font-bold text-sm tracking-widest uppercase mb-2">المملكة المصرية</h3>
+                        
+                        <div class="w-16 h-16 mx-auto bg-gray-200 rounded-full border-4 border-[#D4AF37] mb-2 overflow-hidden flex items-center justify-center">
+                             <div id="godSymbol" class="text-3xl"></div>
+                        </div>
+                        
                         <h2 id="cardName" class="text-xl font-black text-black mb-1"></h2>
                         <div class="cartouche-container mb-3 scale-90" id="hieroglyphName"></div>
-
-                        <!-- Info Strip (Age & Zodiac) -->
-                        <div class="flex justify-center gap-2 mb-3">
-                            <span class="info-badge" id="ageDisplay"></span>
-                            <span class="info-badge" id="zodiacNameDisplay"></span>
+                        
+                        <!-- Badges -->
+                        <div class="flex justify-center gap-2 mb-2">
+                            <span id="histAgeBadge" class="text-[10px] border border-gray-600 text-black px-2 rounded-full font-bold"></span>
+                            <span id="histZodiacBadge" class="text-[10px] border border-[#8B0000] text-[#8B0000] px-2 rounded-full font-bold"></span>
                         </div>
 
-                        <!-- Details Box -->
                         <div class="bg-[#e8dcc0] p-3 rounded-lg border border-[#D4AF37]/50 text-right">
-                            
-                            <!-- Pharaonic Profile -->
-                            <div class="mb-3 border-b border-[#D4AF37]/30 pb-2">
-                                <div class="flex justify-between items-end mb-1">
+                            <!-- Pharaonic -->
+                            <div class="mb-2 border-b border-[#D4AF37]/30 pb-2">
+                                <div class="flex justify-between items-center mb-1">
                                     <span class="text-[10px] text-[#8B0000] font-bold">القرين التاريخي</span>
-                                    <span id="godName" class="text-xs font-bold text-black bg-[#D4AF37]/20 px-2 rounded"></span>
+                                    <span id="godName" class="text-[10px] font-bold text-black"></span>
                                 </div>
                                 <p id="prophecy" class="text-[10px] text-gray-800 leading-snug font-semibold"></p>
                             </div>
-
-                            <!-- Zodiac Traits -->
+                            <!-- Zodiac -->
                             <div>
-                                <div class="flex justify-between items-end mb-1">
-                                    <span class="text-[10px] text-[#8B0000] font-bold">صفاتك الفلكية</span>
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-[10px] text-[#8B0000] font-bold">صفات البرج</span>
                                     <span class="text-[10px] text-black">🔭</span>
                                 </div>
-                                <p id="zodiacTraitsDisplay" class="text-[10px] text-gray-700 leading-snug"></p>
+                                <p id="histZodiacTraits" class="text-[10px] text-gray-700 leading-snug"></p>
                             </div>
                         </div>
                         
-                        <!-- Footer -->
-                        <div class="mt-2 flex justify-between items-center px-2 text-gray-500">
-                            <div class="text-[9px] font-mono" id="fullDateDisplay"></div>
-                            <div class="text-[8px] text-[#8B0000]">تصميم: أبو الفضل</div>
+                        <div class="mt-2 flex justify-between items-center px-2">
+                            <div class="text-[8px] text-gray-500" id="histFullDate"></div>
                             <div class="text-lg">𓋹 𓏏 𓆣</div>
                         </div>
                     </div>
                 </div>
+                <!-- Actions -->
+                <div class="mt-4 flex gap-2">
+                    <button onclick="downloadImage('captureHistory', 'HistoryID')" class="flex-1 bg-gray-800 py-2 rounded-lg text-xs hover:bg-gray-700">حفظ الصورة</button>
+                    <button onclick="shareWhatsApp()" class="flex-1 bg-[#25D366] py-2 rounded-lg text-xs font-bold hover:bg-[#1ebc57] flex justify-center items-center gap-1">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                        مشاركة
+                    </button>
+                    <button onclick="resetApp('history')" class="flex-1 bg-red-900/50 py-2 rounded-lg text-xs hover:bg-red-900">جديد</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: ID Check (Security/Tech) -->
+        <div id="check-section" class="w-full max-w-md hidden">
+            <!-- Input -->
+            <div id="check-input" class="bg-gray-900/80 p-6 rounded-2xl border border-gray-800 shadow-xl">
+                <div class="mb-4 text-center">
+                    <h2 class="text-lg font-bold text-white flex justify-center items-center gap-2">
+                        <svg class="w-5 h-5 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                        تحليل الرقم القومي
+                    </h2>
+                    <p class="text-gray-500 text-xs">أداة OSINT لاستخراج البيانات والتحقق من صحة الرقم.</p>
+                </div>
+                <form onsubmit="analyzeID(event)" class="space-y-4">
+                    <input type="number" id="nidInput" placeholder="أدخل الـ 14 رقم هنا" 
+                           class="input-field w-full p-4 rounded-lg text-center font-mono text-xl tracking-widest" required>
+                    <button type="submit" class="w-full py-3 rounded-xl font-bold mt-2 bg-gray-700 hover:bg-gray-600 transition">فحص البيانات</button>
+                </form>
+            </div>
+
+            <!-- Result (Hidden) -->
+            <div id="check-result" class="hidden mt-4">
+                <div id="captureCheck" class="bg-[#0a0a0a] border border-gray-800 rounded-xl p-5 shadow-2xl">
+                    <div class="text-center mb-4 pb-2 border-b border-gray-800">
+                         <h3 class="text-gray-400 text-xs uppercase tracking-widest">نتيجة الفحص</h3>
+                         <div id="statusBadge" class="mt-2 inline-block px-3 py-1 rounded text-xs font-bold"></div>
+                    </div>
+
+                    <!-- Breakdown -->
+                    <div class="analysis-card">
+                        <!-- 1. Generation -->
+                        <div class="analysis-item">
+                            <span class="analysis-label">1. جيل الميلاد (القرن)</span>
+                            <span id="resGeneration" class="analysis-value"></span>
+                        </div>
+                        <!-- 2. Date -->
+                        <div class="analysis-item">
+                            <span class="analysis-label">2. تاريخ الميلاد</span>
+                            <span id="resDate" class="analysis-value text-[#D4AF37]"></span>
+                        </div>
+                        <!-- 3. Gov -->
+                        <div class="analysis-item">
+                            <span class="analysis-label">3. المحافظة (كود)</span>
+                            <span id="resGov" class="analysis-value"></span>
+                        </div>
+                        <!-- 4. Gender -->
+                        <div class="analysis-item">
+                            <span class="analysis-label">4. النوع (رقم 13)</span>
+                            <span id="resGender" class="analysis-value"></span>
+                        </div>
+                        <!-- 5. Zodiac Name (New) -->
+                        <div class="analysis-item">
+                            <span class="analysis-label">5. البرج الفلكي</span>
+                            <span id="resZodiacName" class="analysis-value text-[#00f3ff]"></span>
+                        </div>
+                        <!-- 6. Zodiac Traits (New) -->
+                        <div class="analysis-item block">
+                            <span class="analysis-label block mb-1">6. صفات البرج</span>
+                            <span id="resZodiacTraits" class="analysis-value text-[10px] text-gray-300 font-normal leading-tight"></span>
+                        </div>
+                        <!-- 7. Checksum -->
+                        <div class="analysis-item">
+                            <span class="analysis-label">7. رقم التحقق (رقم 14)</span>
+                            <span id="resCheck" class="analysis-value font-mono"></span>
+                        </div>
+                    </div>
+
+                    <div id="errorMsg" class="mt-3 text-red-500 text-xs text-center hidden"></div>
+                    
+                    <div class="mt-4 text-[9px] text-gray-600 text-center">
+                        هذه الأداة تعليمية للتحقق من سلامة البيانات الرقمية.
+                        <br>By: Mahmoud AboElfadl
+                    </div>
+                </div>
 
                 <!-- Actions -->
-                <div class="mt-8 flex flex-col gap-3 w-full max-w-sm">
-                    <button onclick="downloadCard()" class="gold-btn w-full py-3 rounded-xl font-bold text-lg shadow-lg flex items-center justify-center gap-2">
-                        تحميل البطاقة كصورة (PNG)
-                        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
-                    </button>
-
-                    <div class="flex gap-2">
-                         <button onclick="resetApp()" class="flex-1 px-4 py-2 bg-gray-800 rounded-lg text-sm text-white hover:bg-gray-700">تجربة أخرى</button>
-                         <button onclick="shareLink()" class="flex-1 px-4 py-2 bg-[#25D366] text-white rounded-lg text-sm font-bold shadow-lg flex items-center justify-center gap-2 hover:bg-[#20bd5a]">
-                            مشاركة الرابط
-                            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.008-.57-.008-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-                         </button>
-                    </div>
-                    <p class="text-[10px] text-gray-500 text-center mt-2">قم بتحميل الصورة ثم أرسلها لأصدقائك عبر واتساب</p>
+                <div class="mt-4 flex gap-2">
+                    <button onclick="downloadImage('captureCheck', 'ID_Analysis')" class="flex-1 bg-gray-800 py-2 rounded-lg text-xs hover:bg-gray-700">حفظ التقرير</button>
+                    <button onclick="resetApp('check')" class="flex-1 bg-red-900/50 py-2 rounded-lg text-xs hover:bg-red-900">فحص جديد</button>
                 </div>
-            </section>
+            </div>
         </div>
+
     </main>
 
     <footer class="text-center p-4 text-gray-600 text-xs">
@@ -257,13 +300,13 @@
     </footer>
 
     <script>
-        // --- 1. إعداد القوائم ---
-        const daySelect = document.getElementById('dayInput');
+        // --- Setup Days ---
+        const daySelect = document.getElementById('histDay');
         for (let i = 1; i <= 31; i++) {
             const opt = document.createElement('option'); opt.value = i; opt.innerText = i; daySelect.appendChild(opt);
         }
 
-        // --- 2. بيانات الهيروغليفية ---
+        // --- Data ---
         const hieroPaths = {
             'a': 'M10,25 Q15,5 20,25 M5,15 L25,15', 'b': 'M5,20 L10,10 L25,10 L25,25 L5,25',
             'c': 'M5,15 Q15,5 25,15', 'd': 'M5,10 L25,10 L25,20 Q15,25 5,20 Z',
@@ -280,75 +323,90 @@
             'y': 'M10,5 L10,25 M20,5 L20,25', 'z': 'M5,15 L25,15 M15,15 L15,5',
             'default': 'M10,10 L20,10 L20,20 L10,20 Z'
         };
-
-        const arToEn = {
-            'ا': 'a', 'أ': 'a', 'إ': 'e', 'آ': 'a', 'ب': 'b', 'ت': 't', 'ث': 's',
-            'ج': 'g', 'ح': 'h', 'خ': 'k', 'د': 'd', 'ذ': 'z', 'ر': 'r', 'ز': 'z',
-            'س': 's', 'ش': 's', 'ص': 's', 'ض': 'd', 'ط': 't', 'ظ': 'z', 'ع': 'a',
-            'غ': 'g', 'ف': 'f', 'ق': 'k', 'ك': 'k', 'ل': 'l', 'م': 'm', 'ن': 'n',
-            'ه': 'h', 'و': 'w', 'ي': 'y', 'ى': 'a', 'ة': 'h'
-        };
-
-        // --- 3. بيانات الشخصيات الفرعونية (النسخة الأولى) ---
+        const arToEn = {'ا':'a','أ':'a','إ':'e','آ':'a','ب':'b','ت':'t','ث':'s','ج':'g','ح':'h','خ':'k','د':'d','ذ':'z','ر':'r','ز':'z','س':'s','ش':'s','ص':'s','ض':'d','ط':'t','ظ':'z','ع':'a','غ':'g','ف':'f','ق':'k','ك':'k','ل':'l','م':'m','ن':'n','ه':'h','و':'w','ي':'y','ى':'a','ة':'h'};
         const godProfiles = [
-            { god: "رع (Ra)", title: "ابن الشمس", symbol: "☀️", desc: "قيادي، مشع، وصاحب قرارات حاسمة كشروق الشمس." },
-            { god: "تحوت (Thoth)", title: "حارس الحكمة", symbol: "📜", desc: "مفكر، تحليلي، ودقيق الملاحظة. يعشق العلم." },
-            { god: "إيزيس (Isis)", title: "مانح الحياة", symbol: "🪽", desc: "لديك سحر خاص وقدرة على احتواء الجميع." },
-            { god: "أوزوريس (Osiris)", title: "سيد الأبدية", symbol: "👑", desc: "متزن وعادل، وتملك قدرة عجيبة على التجدد." },
-            { god: "حورس (Horus)", title: "عين الصقر", symbol: "🦅", desc: "شجاع ومقدام، قائد بالفطرة يحمي من يحب." },
-            { god: "أنوبيس (Anubis)", title: "حارس الأسرار", symbol: "🐕", desc: "غامض، كاتم للأسرار، وعميق التفكير." },
-            { god: "باستيت (Bastet)", title: "روح القوة", symbol: "🐱", desc: "تمزج بين اللطف والشراسة عند اللزوم." },
-            { god: "سخمت (Sekhmet)", title: "قوة الحرب", symbol: "🦁", desc: "شخصية نارية، إرادة حديدية لا تعرف الاستسلام." },
-            { god: "موت (Mut)", title: "الأم العظمى", symbol: "🏺", desc: "منظم جداً وتصلح لإدارة المجموعات الكبيرة." },
-            { god: "بتاح (Ptah)", title: "الصانع", symbol: "🔨", desc: "مبدع، تفكيرك عملي، تحب بناء الأشياء من الصفر." },
-            { god: "سوبيك (Sobek)", title: "سيد النيل", symbol: "🐊", desc: "قوي وغريزي، تفرض احترامك وسريع البديهة." },
-            { god: "آمون (Amun)", title: "الخفي", symbol: "🌬️", desc: "غامض، استراتيجي، وتخطط لخطواتك بعناية." }
+            { god: "رع", title: "ابن الشمس", symbol: "☀️", desc: "قيادي، مشع، وصاحب قرارات حاسمة." },
+            { god: "تحوت", title: "حارس الحكمة", symbol: "📜", desc: "مفكر، تحليلي، ودقيق الملاحظة." },
+            { god: "إيزيس", title: "مانح الحياة", symbol: "🪽", desc: "لديك سحر خاص وقدرة على الاحتواء." },
+            { god: "أوزوريس", title: "سيد الأبدية", symbol: "👑", desc: "متزن وعادل، وتملك قدرة على التجدد." },
+            { god: "حورس", title: "عين الصقر", symbol: "🦅", desc: "شجاع ومقدام، قائد بالفطرة." },
+            { god: "أنوبيس", title: "حارس الأسرار", symbol: "🐕", desc: "غامض، كاتم للأسرار، وعميق التفكير." },
+            { god: "باستيت", title: "روح القوة", symbol: "🐱", desc: "تمزج بين اللطف والشراسة عند اللزوم." },
+            { god: "سخمت", title: "قوة الحرب", symbol: "🦁", desc: "شخصية نارية، إرادة حديدية." },
+            { god: "موت", title: "الأم العظمى", symbol: "🏺", desc: "منظم جداً وتصلح للإدارة." },
+            { god: "بتاح", title: "الصانع", symbol: "🔨", desc: "مبدع، تفكيرك عملي، وبناء." },
+            { god: "سوبيك", title: "سيد النيل", symbol: "🐊", desc: "قوي وغريزي، تفرض احترامك." },
+            { god: "آمون", title: "الخفي", symbol: "🌬️", desc: "غامض، استراتيجي، وتخطط بذكاء." }
         ];
 
-        // --- 4. بيانات الأبراج وصفاتها (النسخة الثانية) ---
-        const zodiacTraits = {
-            "Aries": { name: "الحمل ♈", traits: "جريء، مبادر، وقائد بالفطرة. لا يخشى التحديات." },
-            "Taurus": { name: "الثور ♉", traits: "صبور، عملي، ومحب للاستقرار والجمال." },
-            "Gemini": { name: "الجوزاء ♊", traits: "ذكي، اجتماعي، ومتعدد المواهب وسريع التكيف." },
-            "Cancer": { name: "السرطان ♋", traits: "عاطفي، حدسي، ومخلص جداً لمن يحب." },
-            "Leo": { name: "الأسد ♌", traits: "كاريزما عالية، كريم، ويحب أن يكون محور الاهتمام." },
-            "Virgo": { name: "العذراء ♍", traits: "دقيق، تحليلي، ويسعى دائماً للكمال." },
+        const zodiacData = {
+            "Aries": { name: "الحمل ♈", traits: "جريء، مبادر، قائد بالفطرة، ولا يخشى التحديات." },
+            "Taurus": { name: "الثور ♉", traits: "صبور، عملي، محب للاستقرار، ويقدر الجمال." },
+            "Gemini": { name: "الجوزاء ♊", traits: "ذكي، اجتماعي، متعدد المواهب وسريع التكيف." },
+            "Cancer": { name: "السرطان ♋", traits: "عاطفي، حدسي، مخلص جداً، ويحمي من يحب." },
+            "Leo": { name: "الأسد ♌", traits: "كاريزما عالية، كريم، طموح ويحب الأضواء." },
+            "Virgo": { name: "العذراء ♍", traits: "دقيق، تحليلي، يسعى للكمال ويحب النظام." },
             "Libra": { name: "الميزان ♎", traits: "دبلوماسي، عادل، ويسعى للتوازن في كل شيء." },
-            "Scorpio": { name: "العقرب ♏", traits: "شغوف، قوي الإرادة، وغامض وجذاب." },
-            "Sagittarius": { name: "القوس ♐", traits: "متفائل، محب للمغامرة، وصادق جداً." },
+            "Scorpio": { name: "العقرب ♏", traits: "شغوف، قوي الإرادة، غامض وجذاب." },
+            "Sagittarius": { name: "القوس ♐", traits: "متفائل، محب للمغامرة، صادق وفلسفي." },
             "Capricorn": { name: "الجدي ♑", traits: "طموح، منضبط، ويخطط للمستقبل بجدية." },
-            "Aquarius": { name: "الدلو ♒", traits: "مبتكر، مستقل، ويفكر خارج الصندوق." },
+            "Aquarius": { name: "الدلو ♒", traits: "مبتكر، مستقل، ويفكر خارج الصندوق دائماً." },
             "Pisces": { name: "الحوت ♓", traits: "حالم، متعاطف، ولديه خيال فني واسع." }
         };
 
-        function getZodiacData(day, month) {
-            if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) return zodiacTraits["Aquarius"];
-            if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) return zodiacTraits["Pisces"];
-            if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) return zodiacTraits["Aries"];
-            if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) return zodiacTraits["Taurus"];
-            if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) return zodiacTraits["Gemini"];
-            if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) return zodiacTraits["Cancer"];
-            if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) return zodiacTraits["Leo"];
-            if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) return zodiacTraits["Virgo"];
-            if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) return zodiacTraits["Libra"];
-            if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) return zodiacTraits["Scorpio"];
-            if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) return zodiacTraits["Sagittarius"];
-            return zodiacTraits["Capricorn"];
+        const govCodes = {
+            "01": "القاهرة", "02": "الإسكندرية", "03": "بورسعيد", "04": "السويس",
+            "11": "دمياط", "12": "الدقهلية", "13": "الشرقية", "14": "القليوبية",
+            "15": "كفر الشيخ", "16": "الغربية", "17": "المنوفية", "18": "البحيرة",
+            "19": "الإسماعيلية", "21": "الجيزة", "22": "بني سويف", "23": "الفيوم",
+            "24": "المنيا", "25": "أسيوط", "26": "سوهاج", "27": "قنا",
+            "28": "أسوان", "29": "الأقصر", "31": "البحر الأحمر", "32": "الوادي الجديد",
+            "33": "مطروح", "34": "شمال سيناء", "35": "جنوب سيناء", "88": "خارج الجمهورية"
+        };
+
+        // --- Helpers ---
+        function switchTab(tab) {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(`tab-${tab}`).classList.add('active');
+            
+            if(tab === 'history') {
+                document.getElementById('history-section').classList.remove('hidden');
+                document.getElementById('check-section').classList.add('hidden');
+            } else {
+                document.getElementById('history-section').classList.add('hidden');
+                document.getElementById('check-section').classList.remove('hidden');
+            }
         }
 
-        // --- 5. المنطق الرئيسي ---
-        function generateCard(e) {
+        function getZodiacInfo(day, month) {
+            day = parseInt(day);
+            month = parseInt(month);
+            if ((month == 1 && day >= 20) || (month == 2 && day <= 18)) return zodiacData["Aquarius"];
+            if ((month == 2 && day >= 19) || (month == 3 && day <= 20)) return zodiacData["Pisces"];
+            if ((month == 3 && day >= 21) || (month == 4 && day <= 19)) return zodiacData["Aries"];
+            if ((month == 4 && day >= 20) || (month == 5 && day <= 20)) return zodiacData["Taurus"];
+            if ((month == 5 && day >= 21) || (month == 6 && day <= 20)) return zodiacData["Gemini"];
+            if ((month == 6 && day >= 21) || (month == 7 && day <= 22)) return zodiacData["Cancer"];
+            if ((month == 7 && day >= 23) || (month == 8 && day <= 22)) return zodiacData["Leo"];
+            if ((month == 8 && day >= 23) || (month == 9 && day <= 22)) return zodiacData["Virgo"];
+            if ((month == 9 && day >= 23) || (month == 10 && day <= 22)) return zodiacData["Libra"];
+            if ((month == 10 && day >= 23) || (month == 11 && day <= 21)) return zodiacData["Scorpio"];
+            if ((month == 11 && day >= 22) || (month == 12 && day <= 21)) return zodiacData["Sagittarius"];
+            return zodiacData["Capricorn"];
+        }
+
+        // --- History Logic ---
+        function generateHistoryCard(e) {
             e.preventDefault();
-            
-            const name = document.getElementById('nameInput').value.trim();
-            const day = parseInt(document.getElementById('dayInput').value);
-            const month = parseInt(document.getElementById('monthInput').value);
-            const year = parseInt(document.getElementById('yearInput').value);
-            const gender = document.querySelector('input[name="gender"]:checked').value;
-            
+            const name = document.getElementById('histName').value.trim();
+            const day = document.getElementById('histDay').value;
+            const month = document.getElementById('histMonth').value;
+            const year = document.getElementById('histYear').value;
+            const gender = document.querySelector('input[name="histGender"]:checked').value;
+
             if(!name || !year) return;
 
-            // أ. معالجة الاسم (هيروغليفي)
+            // Hiero
             const hieroContainer = document.getElementById('hieroglyphName');
             hieroContainer.innerHTML = '';
             let englishChars = [];
@@ -372,89 +430,143 @@
                 hieroContainer.appendChild(svg);
             });
 
-            // ب. الحسابات
+            // Calc
             const age = new Date().getFullYear() - year;
-            const zodiacInfo = getZodiacData(day, month);
-            const godProfile = godProfiles[month - 1]; // استخدام الشهر لتحديد الشخصية الفرعونية
+            const zodiac = getZodiacInfo(day, month);
+            const profile = godProfiles[month - 1];
+            let title = profile.title;
+            if (gender === 'female') title = title.replace("ابن", "ابنة").replace("سيد", "سيدة").replace("حارس", "حارسة").replace("صانع", "صانعة");
 
-            // ج. تعديل الألقاب حسب الجنس
-            let finalTitle = godProfile.title;
-            if (gender === 'female') {
-                finalTitle = finalTitle.replace("ابن", "ابنة").replace("سيد", "سيدة").replace("حارس", "حارسة").replace("صانع", "صانعة");
-            }
-
-            // د. تعبئة البطاقة
+            // Fill
             document.getElementById('cardName').innerText = name;
-            document.getElementById('fullDateDisplay').innerText = `${year} / ${month} / ${day}`;
+            document.getElementById('godName').innerText = `${profile.god} - ${title}`;
+            document.getElementById('godSymbol').innerText = profile.symbol;
+            document.getElementById('prophecy').innerText = profile.desc;
             
-            // الشريط المعلوماتي الجديد
-            document.getElementById('ageDisplay').innerText = `العمر: ${age}`;
-            document.getElementById('zodiacNameDisplay').innerText = zodiacInfo.name;
+            document.getElementById('histAgeBadge').innerText = `${age} سنة`;
+            document.getElementById('histZodiacBadge').innerText = zodiac.name;
+            document.getElementById('histZodiacTraits').innerText = zodiac.traits;
+            document.getElementById('histFullDate').innerText = `${year} / ${month} / ${day}`;
 
-            // القسم الفرعوني
-            document.getElementById('godName').innerText = `${godProfile.god} - ${finalTitle}`;
-            document.getElementById('godSymbol').innerText = godProfile.symbol;
-            document.getElementById('prophecy').innerText = godProfile.desc;
-
-            // القسم الفلكي
-            document.getElementById('zodiacTraitsDisplay').innerText = zodiacInfo.traits;
-
-            // هـ. العرض
-            document.getElementById('inputSection').classList.add('hidden');
-            const resSection = document.getElementById('resultSection');
-            resSection.classList.remove('hidden');
-            resSection.classList.add('reveal');
+            document.getElementById('history-input').classList.add('hidden');
+            document.getElementById('history-result').classList.remove('hidden');
+            document.getElementById('history-result').classList.add('reveal');
         }
 
-        function resetApp() {
-            document.getElementById('resultSection').classList.add('hidden');
-            document.getElementById('resultSection').classList.remove('reveal');
-            document.getElementById('inputSection').classList.remove('hidden');
-            document.getElementById('historyForm').reset();
-        }
+        // --- ID Check Logic ---
+        function analyzeID(e) {
+            e.preventDefault();
+            const nid = document.getElementById('nidInput').value;
+            const resultDiv = document.getElementById('check-result');
+            const inputDiv = document.getElementById('check-input');
+            const statusBadge = document.getElementById('statusBadge');
+            const errorMsg = document.getElementById('errorMsg');
 
-        function shareLink() {
-            const age = document.getElementById('ageDisplay').innerText;
-            const god = document.getElementById('godName').innerText;
-            const text = `اكتشفت هويتي التاريخية! ${age}، وحارسي هو ${god}. جرب بنفسك!`;
-            
-            if (navigator.share) {
-                navigator.share({ title: 'هويتي التاريخية', text: text, url: window.location.href });
+            errorMsg.classList.add('hidden');
+            statusBadge.className = 'mt-2 inline-block px-3 py-1 rounded text-xs font-bold';
+            let isValid = true;
+            let failureReason = "";
+
+            if (nid.length !== 14) {
+                isValid = false; failureReason = "طول الرقم غير صحيح (يجب أن يكون 14 رقم)";
+            }
+
+            const centuryDigit = nid[0];
+            let generation = "", yearPrefix = "";
+            if (isValid) {
+                if (centuryDigit === '2') { generation = "1900 - 1999"; yearPrefix = "19"; }
+                else if (centuryDigit === '3') { generation = "2000 - 2099"; yearPrefix = "20"; }
+                else { isValid = false; failureReason = "الرقم الأول خطأ (يجب أن يكون 2 أو 3)"; }
+            }
+
+            let fullDate = "", d = 0, m = 0;
+            if (isValid) {
+                const y = nid.substring(1, 3);
+                m = parseInt(nid.substring(3, 5));
+                d = parseInt(nid.substring(5, 7));
+                
+                if (m > 12 || m < 1) { isValid = false; failureReason = "شهر الميلاد غير منطقي"; }
+                if (d > 31 || d < 1) { isValid = false; failureReason = "يوم الميلاد غير منطقي"; }
+                fullDate = `${d} / ${m} / ${yearPrefix}${y}`;
+            }
+
+            let govName = "";
+            if (isValid) {
+                const code = nid.substring(7, 9);
+                govName = govCodes[code];
+                if (!govName) { isValid = false; failureReason = `كود المحافظة (${code}) غير مدرج رسمياً`; }
+            }
+
+            let gender = "";
+            if (isValid) {
+                const gDigit = parseInt(nid[12]);
+                gender = (gDigit % 2 !== 0) ? "ذكر" : "أنثى";
+            }
+
+            // Display
+            if (isValid) {
+                statusBadge.classList.add('bg-green-900', 'text-green-300');
+                statusBadge.innerText = "✓ رقم صحيح (Valid)";
+                
+                const zodiac = getZodiacInfo(d, m); // Get Zodiac for Check Tool
+
+                document.getElementById('resGeneration').innerText = generation;
+                document.getElementById('resDate').innerText = fullDate;
+                document.getElementById('resGov').innerText = govName + ` (${nid.substring(7, 9)})`;
+                document.getElementById('resGender').innerText = gender;
+                document.getElementById('resZodiacName').innerText = zodiac.name;
+                document.getElementById('resZodiacTraits').innerText = zodiac.traits;
+                document.getElementById('resCheck').innerText = nid[13] + " (Active)";
             } else {
-                navigator.clipboard.writeText(text + " " + window.location.href).then(() => alert('تم نسخ الرابط!'));
+                statusBadge.classList.add('bg-red-900', 'text-red-300');
+                statusBadge.innerText = "✗ رقم غير صحيح (Invalid)";
+                errorMsg.innerText = failureReason;
+                errorMsg.classList.remove('hidden');
+                
+                document.getElementById('resGeneration').innerText = "-";
+                document.getElementById('resDate').innerText = "-";
+                document.getElementById('resGov').innerText = "-";
+                document.getElementById('resGender').innerText = "-";
+                document.getElementById('resZodiacName').innerText = "-";
+                document.getElementById('resZodiacTraits').innerText = "-";
+                document.getElementById('resCheck').innerText = "-";
+            }
+
+            inputDiv.classList.add('hidden');
+            resultDiv.classList.remove('hidden');
+            resultDiv.classList.add('reveal');
+        }
+
+        // --- Common Utils ---
+        function resetApp(section) {
+            if(section === 'history') {
+                document.getElementById('history-result').classList.add('hidden');
+                document.getElementById('history-input').classList.remove('hidden');
+                document.getElementById('histName').value = '';
+                document.getElementById('histYear').value = '';
+            } else {
+                document.getElementById('check-result').classList.add('hidden');
+                document.getElementById('check-input').classList.remove('hidden');
+                document.getElementById('nidInput').value = '';
             }
         }
 
-        function downloadCard() {
-            // استخدام مكتبة html2canvas لتحويل البطاقة لصورة
-            const cardElement = document.getElementById('captureTarget');
-            
-            // إضافة loading خفيف
-            const btn = document.querySelector('button[onclick="downloadCard()"]');
-            const originalText = btn.innerHTML;
-            btn.innerHTML = 'جاري المعالجة...';
-            
-            html2canvas(cardElement, {
-                scale: 2, // مضاعفة الدقة لجودة أعلى
-                backgroundColor: null, // خلفية شفافة حول البطاقة
-                useCORS: true
-            }).then(canvas => {
-                // إنشاء رابط تحميل وهمي
+        function downloadImage(targetId, filename) {
+            const el = document.getElementById(targetId);
+            html2canvas(el, { scale: 2, backgroundColor: null }).then(canvas => {
                 const link = document.createElement('a');
-                link.download = `AboElfadl-History-ID-${Date.now()}.png`;
+                link.download = `${filename}.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
-                
-                // استعادة الزر
-                btn.innerHTML = originalText;
-            }).catch(err => {
-                console.error("خطأ في التصوير:", err);
-                alert("حدث خطأ أثناء تحميل الصورة. يرجى المحاولة مرة أخرى.");
-                btn.innerHTML = originalText;
             });
+        }
+
+        function shareWhatsApp() {
+            const url = encodeURIComponent(window.location.href);
+            const text = encodeURIComponent("جرب بوابة الهوية التاريخية والرقمية! اكتشف اسمك بالهيروغليفية أو تحقق من صحة رقمك القومي.");
+            window.open(`https://wa.me/?text=${text}%0A${url}`, '_blank');
         }
     </script>
 </body>
 </html>
-
 
